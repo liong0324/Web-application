@@ -18,6 +18,21 @@ namespace LumoraWebForms.Pages
             int.TryParse(Request.QueryString["courseId"], out courseId);
             int.TryParse(Request.QueryString["lessonId"], out lessonId);
 
+            // Members must be enrolled to take a quiz
+            if (Session["Role"]?.ToString() == "Member" && courseId > 0)
+            {
+                int userId = Convert.ToInt32(Session["UserId"]);
+                object enrolled = DBHelper.Scalar(
+                    "SELECT COUNT(*) FROM Enrollments WHERE UserId = @UserId AND CourseId = @CourseId",
+                    new System.Data.SqlClient.SqlParameter("@UserId", userId),
+                    new System.Data.SqlClient.SqlParameter("@CourseId", courseId));
+                if (Convert.ToInt32(enrolled) == 0)
+                {
+                    Response.Redirect("CourseDetail.aspx?id=" + courseId);
+                    return;
+                }
+            }
+
             if (!IsPostBack) LoadQuiz();
         }
 

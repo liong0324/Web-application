@@ -24,6 +24,29 @@ namespace LumoraWebForms.Pages
                 return;
             }
 
+            // Members must be enrolled to access course content
+            string role = Session["Role"]?.ToString() ?? "";
+            if (role == "Member")
+            {
+                int userId = Convert.ToInt32(Session["UserId"]);
+                object enrolled = DBHelper.Scalar(
+                    "SELECT COUNT(*) FROM Enrollments WHERE UserId = @UserId AND CourseId = @CourseId",
+                    new System.Data.SqlClient.SqlParameter("@UserId", userId),
+                    new System.Data.SqlClient.SqlParameter("@CourseId", courseId));
+                if (Convert.ToInt32(enrolled) == 0)
+                {
+                    // Not enrolled — send back to course detail to enroll first
+                    Response.Redirect("CourseDetail.aspx?id=" + courseId);
+                    return;
+                }
+            }
+            else if (role != "Admin" && role != "Instructor")
+            {
+                // Unknown role — block access
+                Response.Redirect("Courses.aspx");
+                return;
+            }
+
             int.TryParse(Request.QueryString["lessonId"], out currentLessonId);
 
             if (!IsPostBack)

@@ -160,9 +160,15 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item"><a class="nav-link" href="<%= ResolveUrl("~/Default.aspx") %>">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="<%= ResolveUrl("~/Pages/Courses.aspx") %>">Courses</a></li>
+                            <% if (Session["Role"] != null && Session["Role"].ToString() == "Instructor") { %>
+                                <li class="nav-item"><a class="nav-link" href="<%= ResolveUrl("~/Pages/Instructor/MyCourses.aspx") %>">Manage Courses</a></li>
+                            <% } else { %>
+                                <li class="nav-item"><a class="nav-link" href="<%= ResolveUrl("~/Pages/Courses.aspx") %>">Courses</a></li>
+                            <% } %>
                             <li class="nav-item"><a class="nav-link" href="<%= ResolveUrl("~/Pages/About.aspx") %>">About Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="<%= ResolveUrl("~/Pages/Contact.aspx") %>">Contact</a></li>
+                            <% if (Session["Role"] == null || Session["Role"].ToString() != "Admin") { %>
+                                <li class="nav-item"><a class="nav-link" href="<%= ResolveUrl("~/Pages/Contact.aspx") %>">Contact</a></li>
+                            <% } %>
                         </ul>
                         <div class="d-flex align-items-center gap-2">
                             <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode" type="button">
@@ -208,7 +214,7 @@
                                         <% } %>
                                         <li><hr class="dropdown-divider" /></li>
                                         <li>
-                                            <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click">
+                                            <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click" CausesValidation="false">
                                                 <i class="bi bi-box-arrow-right me-2"></i>Logout
                                             </asp:LinkButton>
                                         </li>
@@ -242,7 +248,9 @@
                             <li><a href="<%= ResolveUrl("~/Default.aspx") %>">Home</a></li>
                             <li><a href="<%= ResolveUrl("~/Pages/Courses.aspx") %>">Courses</a></li>
                             <li><a href="<%= ResolveUrl("~/Pages/About.aspx") %>">About Us</a></li>
+                            <% if (Session["Role"] == null || Session["Role"].ToString() != "Admin") { %>
                             <li><a href="<%= ResolveUrl("~/Pages/Contact.aspx") %>">Contact</a></li>
+                            <% } %>
                         </ul>
                     </div>
                     <div class="col-lg-3">

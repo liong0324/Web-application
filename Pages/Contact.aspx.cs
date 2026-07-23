@@ -7,7 +7,18 @@ namespace LumoraWebForms.Pages
 {
     public partial class Contact : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e) { }
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack && Session["UserId"] != null)
+            {
+                txtName.Text = Session["FullName"]?.ToString() ?? "";
+                txtEmail.Text = Session["Email"]?.ToString() ?? "";
+                txtName.ReadOnly = true;
+                txtEmail.ReadOnly = true;
+                txtName.CssClass = "form-control bg-transparent";
+                txtEmail.CssClass = "form-control bg-transparent";
+            }
+        }
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
@@ -22,8 +33,13 @@ namespace LumoraWebForms.Pages
 
             lblSuccess.Text = "Your message has been sent! We'll get back to you soon.";
             lblSuccess.Visible = true;
-            txtName.Text = "";
-            txtEmail.Text = "";
+
+            // Only clear name/email for guests — logged-in users keep their pre-filled values
+            if (Session["UserId"] == null)
+            {
+                txtName.Text = "";
+                txtEmail.Text = "";
+            }
             txtSubject.Text = "";
             txtMessage.Text = "";
         }

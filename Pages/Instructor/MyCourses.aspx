@@ -8,7 +8,7 @@
         <div class="glass-card p-0">
             <div class="table-responsive">
                 <table class="table table-hover mb-0">
-                    <thead><tr><th>Course</th><th>Category</th><th>Level</th><th>Students</th><th>Completions</th><th>Status</th></tr></thead>
+                    <thead><tr><th>Course</th><th>Category</th><th>Level</th><th>Students</th><th>Completions</th><th>Status</th><th></th></tr></thead>
                     <tbody>
                         <asp:Repeater ID="rptCourses" runat="server">
                             <ItemTemplate>
@@ -22,6 +22,7 @@
                                     <td><%# Eval("EnrollmentCount") %></td>
                                     <td><%# Eval("Completions") %></td>
                                     <td><span class="badge" style="background:<%# Convert.ToBoolean(Eval("IsPublished")) ? "var(--success)" : "var(--warning)" %>;color:white;"><%# Convert.ToBoolean(Eval("IsPublished")) ? "Published" : "Draft" %></span></td>
+                                    <td><a href='<%# "ManageCourse.aspx?id=" + Eval("Id") %>' class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-square me-1"></i>Manage Lessons</a></td>
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>

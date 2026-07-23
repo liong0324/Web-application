@@ -3,11 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-5 col-lg-4">
-                <div class="glass-card p-5 auth-card fade-in">
+            <div class="col-md-7 col-lg-5">
+                <div class="glass-card p-5 auth-card fade-in" style="padding: 3rem !important;">
                     <div class="text-center mb-4">
-                        <div class="feature-icon purple mx-auto mb-3"><i class="bi bi-box-arrow-in-right"></i></div>
-                        <h3>Welcome Back</h3>
+                        <div class="feature-icon purple mx-auto mb-3" style="width:80px;height:80px;font-size:2rem;"><i class="bi bi-box-arrow-in-right"></i></div>
+                        <h2 class="mb-1">Welcome Back</h2>
                         <p class="text-muted">Sign in to continue learning</p>
                     </div>
 

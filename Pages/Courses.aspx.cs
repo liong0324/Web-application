@@ -10,6 +10,13 @@ namespace LumoraWebForms.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Instructors should use their own course management page
+            if (Session["Role"] != null && Session["Role"].ToString() == "Instructor")
+            {
+                Response.Redirect("~/Pages/Instructor/MyCourses.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 LoadCategories();
@@ -22,11 +29,15 @@ namespace LumoraWebForms.Pages
             DataTable dt = DBHelper.Query("SELECT Id, Name FROM Categories ORDER BY Name");
             rptCategories.DataSource = dt;
             rptCategories.DataBind();
+            // Update All button style based on active state
+            btnAll.CssClass = ViewState["ActiveCat"] == null
+                ? "filter-btn btn-lumora-primary"
+                : "filter-btn btn-lumora-secondary";
         }
 
         private void LoadCourses(int? categoryId)
         {
-            string sql = @"SELECT c.Id, c.Title, c.Description, c.Level,
+            string sql = @"SELECT c.Id, c.Title, c.Description, c.Level, c.InstructorId,
                            (SELECT COUNT(*) FROM Enrollments WHERE CourseId = c.Id) AS EnrollmentCount,
                            cat.Name AS CategoryName, u.FullName AS InstructorName
                            FROM Courses c
@@ -49,12 +60,24 @@ namespace LumoraWebForms.Pages
         protected void btnCategory_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
+            ViewState["ActiveCat"] = btn.CommandArgument;
+            LoadCategories();
             LoadCourses(int.Parse(btn.CommandArgument));
         }
 
         protected void btnAll_Click(object sender, EventArgs e)
         {
+            ViewState["ActiveCat"] = null;
+            LoadCategories();
             LoadCourses(null);
+        }
+
+        protected string GetCourseButton(object id)
+        {
+            string role = Session["Role"] != null ? Session["Role"].ToString() : "";
+            if (role == "Admin")
+                return "<a href='" + ResolveUrl("~/Pages/Admin/ManageCourse.aspx?id=" + id) + "' class=\"btn-lumora-secondary w-100 text-center d-block\"><i class=\"bi bi-gear me-1\"></i>Manage Course</a>";
+            return "<a href='" + ResolveUrl("~/Pages/CourseDetail.aspx?id=" + id) + "' class=\"btn-lumora-primary w-100 text-center d-block\">View Details <i class=\"bi bi-arrow-right ms-1\"></i></a>";
         }
     }
 }

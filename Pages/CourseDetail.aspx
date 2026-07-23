@@ -29,13 +29,15 @@
                     <h5 class="mb-3"><i class="bi bi-list-ol me-2 text-primary"></i>Course Content</h5>
                     <asp:Repeater ID="rptLessons" runat="server">
                         <ItemTemplate>
-                            <div class="d-flex justify-content-between align-items-center p-3 rounded-lg mb-2" style="background:var(--bg-primary);">
+                            <a href='<%# GetLessonUrl(Convert.ToInt32(Eval("Id"))) %>'
+                               class="d-flex justify-content-between align-items-center p-3 rounded-lg mb-2 text-decoration-none"
+                               style="background:var(--bg-primary);">
                                 <div>
                                     <span class="badge me-2" style="background:var(--primary);color:white;"><%# Eval("Order") %></span>
-                                    <strong><%# Eval("Title") %></strong>
+                                    <strong style="color:var(--text-primary);"><%# Eval("Title") %></strong>
                                 </div>
                                 <small class="text-muted"><i class="bi bi-clock me-1"></i><%# Eval("DurationMinutes") %> min</small>
-                            </div>
+                            </a>
                         </ItemTemplate>
                     </asp:Repeater>
                 </asp:Panel>

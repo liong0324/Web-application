@@ -10,7 +10,14 @@
                     </div>
                     <h4><asp:Literal ID="litFullName" runat="server" /></h4>
                     <p class="text-muted small">@<asp:Literal ID="litUsername" runat="server" /></p>
-                    <span class="level-badge-lg level-<%= (Session["Level"] ?? "Bronze").ToString().ToLower() %>"><%= Session["Level"] ?? "Bronze" %> Learner</span>
+                    <% string profRole = Session["Role"] != null ? Session["Role"].ToString() : ""; %>
+                    <% if (profRole == "Member") { %>
+                        <span class="level-badge-lg level-<%= (Session["Level"] ?? "Bronze").ToString().ToLower() %>"><%= Session["Level"] ?? "Bronze" %> Learner</span>
+                    <% } else if (profRole == "Instructor") { %>
+                        <span class="level-badge-lg" style="background:rgba(0,206,201,0.15);color:var(--secondary);border:1px solid rgba(0,206,201,0.3);"><i class="bi bi-person-video3 me-1"></i>Instructor</span>
+                    <% } else if (profRole == "Admin") { %>
+                        <span class="level-badge-lg" style="background:rgba(108,92,231,0.15);color:var(--primary);border:1px solid rgba(108,92,231,0.3);"><i class="bi bi-shield-lock me-1"></i>Administrator</span>
+                    <% } %>
                     <hr/>
                     <div class="row text-center">
                         <div class="col-4"><h5 class="text-gradient mb-0"><asp:Literal ID="litEnrolled" runat="server" /></h5><small class="text-muted">Enrolled</small></div>

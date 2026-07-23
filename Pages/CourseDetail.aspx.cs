@@ -81,12 +81,19 @@ namespace LumoraWebForms.Pages
             }
             else if (Session["UserId"] != null)
             {
-                // Admin and Instructor see a Manage Course button instead of Enroll
+                // Admin gets Manage Course, Instructor gets View Course (read-only)
                 pnlEnroll.Visible = false;
                 pnlManage.Visible = true;
-                btnManageCourse.HRef = Session["Role"]?.ToString() == "Admin"
-                    ? ResolveUrl("~/Pages/Admin/ManageCourses.aspx")
-                    : ResolveUrl("~/Pages/Instructor/MyCourses.aspx");
+                if (Session["Role"]?.ToString() == "Admin")
+                {
+                    btnManageCourse.InnerHtml = "<i class='bi bi-gear me-2'></i>Manage Course";
+                    btnManageCourse.HRef = ResolveUrl("~/Pages/Admin/ManageCourse.aspx?id=" + courseId);
+                }
+                else
+                {
+                    btnManageCourse.InnerHtml = "<i class='bi bi-patch-question me-2'></i>Manage Quizzes";
+                    btnManageCourse.HRef = ResolveUrl("~/Pages/Instructor/ManageCourse.aspx?id=" + courseId);
+                }
             }
 
             btnEnroll.Enabled = hasLessons;
@@ -94,6 +101,27 @@ namespace LumoraWebForms.Pages
             {
                 btnEnroll.Text = "No Lessons Yet";
             }
+        }
+
+        protected string GetLessonUrl(int lessonId)
+        {
+            string role = Session["Role"]?.ToString() ?? "";
+            // Instructors and admins can always view lesson content
+            if (role == "Instructor" || role == "Admin")
+                return string.Format("Learn.aspx?courseId={0}&lessonId={1}", courseId, lessonId);
+            // Members must be enrolled first
+            if (role == "Member" && Session["UserId"] != null)
+            {
+                int userId = Convert.ToInt32(Session["UserId"]);
+                object enrolled = DBHelper.Scalar(
+                    "SELECT COUNT(*) FROM Enrollments WHERE UserId = @UserId AND CourseId = @CourseId",
+                    new System.Data.SqlClient.SqlParameter("@UserId", userId),
+                    new System.Data.SqlClient.SqlParameter("@CourseId", courseId));
+                if (Convert.ToInt32(enrolled) > 0)
+                    return string.Format("Learn.aspx?courseId={0}&lessonId={1}", courseId, lessonId);
+            }
+            // Not enrolled or not logged in — return # (no link)
+            return "#";
         }
 
         protected void btnEnroll_Click(object sender, EventArgs e)

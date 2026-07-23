@@ -5,9 +5,16 @@
         <div class="dashboard-welcome slide-up">
             <div class="row align-items-center">
                 <div class="col-md-8">
-                    <h2 class="mb-1">Welcome back, <asp:Literal ID="litUserName" runat="server" /> &#x1F44B;</h2>
+                    <h1 class="mb-1" style="font-size:2.4rem;font-weight:800;">Welcome back, <asp:Literal ID="litUserName" runat="server" /> &#x1F44B;</h1>
                     <div class="d-flex align-items-center gap-3 mt-2">
-                        <span class="level-badge-lg level-<%= (Session["Level"] ?? "Bronze").ToString().ToLower() %>"><%= Session["Level"] ?? "Bronze" %> Learner</span>
+                        <% string role = Session["Role"] != null ? Session["Role"].ToString() : ""; %>
+                        <% if (role == "Member") { %>
+                            <span class="level-badge-lg level-<%= (Session["Level"] ?? "Bronze").ToString().ToLower() %>"><%= Session["Level"] ?? "Bronze" %> Learner</span>
+                        <% } else if (role == "Instructor") { %>
+                            <span class="level-badge-lg" style="background:rgba(0,206,201,0.2);color:var(--secondary);border:1px solid rgba(0,206,201,0.4);"><i class="bi bi-person-video3 me-1"></i>Instructor</span>
+                        <% } else if (role == "Admin") { %>
+                            <span class="level-badge-lg" style="background:rgba(108,92,231,0.2);color:var(--primary-light);border:1px solid rgba(108,92,231,0.4);"><i class="bi bi-shield-lock me-1"></i>Administrator</span>
+                        <% } %>
                         <span class="text-white-50"><i class="bi bi-star-fill text-warning me-1"></i><asp:Literal ID="litPoints" runat="server" /> points</span>
                     </div>
                 </div>

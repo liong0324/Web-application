@@ -173,12 +173,17 @@ INSERT INTO Users (FullName, Email, Username, PasswordHash, Role, IsActive) VALU
 INSERT INTO Courses (Title, Description, CategoryId, InstructorId, Price, IsPublished, Level) VALUES
 ('Introduction to HTML5 & CSS3', 'Learn the fundamentals of web development with HTML5 and CSS3.', 1, 2, 0, 1, 'Beginner'),
 ('JavaScript Fundamentals', 'Master JavaScript from basics to advanced concepts.', 1, 2, 0, 1, 'Beginner'),
-('Database Design with SQL', 'Learn relational database design, SQL queries, normalization.', 2, 4, 0, 1, 'Intermediate'),
-('Object-Oriented Programming in C#', 'Comprehensive guide to OOP principles in C#.', 3, 3, 0, 1, 'Intermediate'),
-('Ethical Hacking & Penetration Testing', 'Learn ethical hacking techniques and vulnerability assessment.', 6, 3, 0, 1, 'Intermediate'),
-('Python for Data Science', 'Master Python programming for data analysis and ML.', 4, 4, 0, 1, 'Beginner'),
 ('ASP.NET Core MVC Masterclass', 'Build modern web applications with ASP.NET Core MVC.', 1, 2, 0, 1, 'Intermediate'),
-('Advanced SQL & Database Optimization', 'Master advanced SQL queries and performance tuning.', 2, 4, 0, 1, 'Advanced');
+('Database Design with SQL', 'Learn relational database design, SQL queries, normalization.', 2, 4, 0, 1, 'Intermediate'),
+('Advanced SQL & Database Optimization', 'Master advanced SQL queries and performance tuning.', 2, 4, 0, 1, 'Advanced'),
+('Object-Oriented Programming in C#', 'Comprehensive guide to OOP principles in C#.', 3, 3, 0, 1, 'Intermediate'),
+('Agile & Scrum Methodology', 'Master agile development, scrum ceremonies, sprint planning, and team collaboration.', 3, 2, 0, 1, 'Beginner'),
+('Python for Data Science', 'Master Python programming for data analysis and ML.', 4, 4, 0, 1, 'Beginner'),
+('Machine Learning with Python', 'Build and train machine learning models using scikit-learn, TensorFlow, and real-world datasets.', 4, 4, 0, 1, 'Advanced'),
+('Network Fundamentals', 'Learn TCP/IP, subnetting, routing protocols, and network architecture from the ground up.', 5, 3, 0, 1, 'Beginner'),
+('Cloud Computing & AWS', 'Explore cloud infrastructure, AWS services, deployment models, and scalability best practices.', 5, 4, 0, 1, 'Intermediate'),
+('Ethical Hacking & Penetration Testing', 'Learn ethical hacking techniques and vulnerability assessment.', 6, 3, 0, 1, 'Intermediate'),
+('Network Security & Firewalls', 'Master firewall configuration, intrusion detection systems, and secure network design.', 6, 3, 0, 1, 'Advanced');
 
 -- Seed Lessons
 INSERT INTO Lessons (Title, Content, CourseId, [Order], DurationMinutes, IsPreview) VALUES

@@ -6,16 +6,31 @@
             <h2 class="section-title">Explore <span class="text-gradient">Courses</span></h2>
         </div>
 
-        <div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
-            <asp:Repeater ID="rptCategories" runat="server">
-                <ItemTemplate>
-                    <asp:LinkButton ID="btnCategory" runat="server" CssClass="btn btn-sm" 
-                        CommandArgument='<%# Eval("Id") %>' OnClick="btnCategory_Click"
-                        Text='<%# Eval("Name") %>' />
-                </ItemTemplate>
-            </asp:Repeater>
-            <asp:LinkButton ID="btnAll" runat="server" CssClass="btn btn-lumora-primary btn-sm" Text="All" OnClick="btnAll_Click" />
+        <div class="glass-card p-3 mb-4">
+            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                <asp:LinkButton ID="btnAll" runat="server" CssClass="filter-btn btn-lumora-primary" Text="All" OnClick="btnAll_Click" />
+                <asp:Repeater ID="rptCategories" runat="server">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="btnCategory" runat="server"
+                            CssClass='<%# "filter-btn " + (ViewState["ActiveCat"] != null && ViewState["ActiveCat"].ToString() == Eval("Id").ToString() ? "btn-lumora-primary" : "btn-lumora-secondary") %>'
+                            CommandArgument='<%# Eval("Id") %>' OnClick="btnCategory_Click"
+                            Text='<%# Eval("Name") %>' />
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
         </div>
+        <style>
+            .filter-btn {
+                padding: 0.45rem 1.2rem;
+                border-radius: var(--radius-xl);
+                font-size: 0.875rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: var(--transition);
+                display: inline-block;
+                text-decoration: none;
+            }
+        </style>
 
         <div class="row g-4">
             <asp:Repeater ID="rptCourses" runat="server">
@@ -34,7 +49,7 @@
                                     <span><i class="bi bi-person me-1"></i><%# Eval("InstructorName") %></span>
                                     <span><i class="bi bi-people me-1"></i><%# Eval("EnrollmentCount") %></span>
                                 </div>
-                                <a href='CourseDetail.aspx?id=<%# Eval("Id") %>' class="btn-lumora-primary w-100 text-center">View Details</a>
+                                <%# GetCourseButton(Eval("Id")) %>
                             </div>
                         </div>
                     </div>

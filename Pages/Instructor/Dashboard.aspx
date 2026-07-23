@@ -5,7 +5,7 @@
         <div class="dashboard-welcome slide-up mb-4">
             <div class="row align-items-center">
                 <div class="col-md-8">
-                    <h2 class="mb-1">Welcome, <asp:Literal ID="litName" runat="server" /> &#x1F44B;</h2>
+                    <h1 class="mb-1" style="font-size:2.4rem;font-weight:800;">Welcome, <asp:Literal ID="litName" runat="server" /> &#x1F44B;</h1>
                     <p class="mb-0" style="color:rgba(255,255,255,0.85);">Manage your courses and track student progress.</p>
                 </div>
             </div>

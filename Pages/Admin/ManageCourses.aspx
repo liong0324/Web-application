@@ -46,7 +46,7 @@
                                     <td><%# Eval("EnrollmentCount") %></td>
                                     <td><span class="badge" style="background:<%# Convert.ToBoolean(Eval("IsPublished")) ? "var(--success)" : "var(--text-muted)" %>;color:white;"><%# Convert.ToBoolean(Eval("IsPublished")) ? "Published" : "Draft" %></span></td>
                                     <td>
-                                        <asp:LinkButton ID="btnEdit" runat="server" CssClass="btn btn-sm btn-outline-primary" CommandName="Edit" CommandArgument='<%# Eval("Id") %>'><i class="bi bi-pencil"></i></asp:LinkButton>
+                                        <a href='ManageCourse.aspx?id=<%# Eval("Id") %>' class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
                                         <asp:LinkButton ID="btnDelete" runat="server" CssClass="btn btn-sm btn-outline-danger" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' OnClientClick="return confirm('Delete this course?');"><i class="bi bi-trash"></i></asp:LinkButton>
                                         <asp:LinkButton ID="btnToggle" runat="server" CssClass="btn btn-sm btn-outline-warning" CommandName="Toggle" CommandArgument='<%# Eval("Id") %>'><i class="bi bi-eye"></i></asp:LinkButton>
                                     </td>

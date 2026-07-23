@@ -39,6 +39,11 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </asp:Panel>
+                <asp:Panel ID="pnlNoLessons" runat="server" Visible="false" CssClass="glass-card p-4 text-center">
+                    <i class="bi bi-journal-x display-4 text-muted"></i>
+                    <h5 class="mt-3 text-muted">No lessons available yet</h5>
+                    <p class="text-muted mb-0">Course content is being prepared. Please check back later.</p>
+                </asp:Panel>
             </div>
 
             <div class="col-lg-4">
@@ -48,6 +53,11 @@
                     </div>
                     <asp:Panel ID="pnlEnroll" runat="server">
                         <asp:Button ID="btnEnroll" runat="server" CssClass="btn-lumora-primary w-100 mb-2" Text="Enroll Now" OnClick="btnEnroll_Click" />
+                    </asp:Panel>
+                    <asp:Panel ID="pnlManage" runat="server" Visible="false">
+                        <a id="btnManageCourse" runat="server" class="btn-lumora-secondary w-100 mb-2 text-center d-block">
+                            <i class="bi bi-gear me-2"></i>Manage Course
+                        </a>
                     </asp:Panel>
                     <asp:Panel ID="pnlProgress" runat="server" Visible="false">
                         <div class="mb-3">

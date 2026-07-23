@@ -65,11 +65,7 @@
                                         </td>
                                         <td><span class="badge" style="background:var(--success);color:white;"><%# Convert.ToInt32(Eval("Progress")) >= 100 ? "Completed" : "In Progress" %></span></td>
                                         <td>
-                                            <% if (Convert.ToInt32(Eval("Progress")) >= 100) { %>
-                                                <a href='Learn.aspx?courseId=<%# Eval("Id") %>' class="btn btn-sm btn-success">Retake</a>
-                                            <% } else { %>
-                                                <a href='Learn.aspx?courseId=<%# Eval("Id") %>' class="btn btn-sm btn-lumora-primary">Continue</a>
-                                            <% } %>
+                                            <a href='<%# "Learn.aspx?courseId=" + Eval("Id") %>' class='<%# Convert.ToInt32(Eval("Progress")) >= 100 ? "btn btn-sm btn-success" : "btn btn-sm btn-lumora-primary" %>'><%# Convert.ToInt32(Eval("Progress")) >= 100 ? "Retake" : "Continue" %></a>
                                         </td>
                                     </tr>
                                 </ItemTemplate>

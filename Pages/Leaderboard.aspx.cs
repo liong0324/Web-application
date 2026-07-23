@@ -10,17 +10,18 @@ namespace LumoraWebForms.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserId"] == null) { Response.Redirect("Login.aspx"); return; }
+            if (Session["Role"]?.ToString() != "Member") { Response.Redirect("~/Pages/Admin/Dashboard.aspx"); return; }
             if (!IsPostBack) LoadLeaderboard();
         }
 
         private void LoadLeaderboard()
         {
-            DataTable topUsers = DBHelper.Query("SELECT TOP 20 FullName, Points, Level FROM Users WHERE IsActive = 1 ORDER BY Points DESC");
+            DataTable topUsers = DBHelper.Query("SELECT TOP 20 FullName, Points, Level FROM Users WHERE IsActive = 1 AND Role = 'Member' ORDER BY Points DESC");
             rptLeaderboard.DataSource = topUsers;
             rptLeaderboard.DataBind();
 
             int userId = Convert.ToInt32(Session["UserId"]);
-            object rank = DBHelper.Scalar("SELECT COUNT(*) FROM Users WHERE IsActive = 1 AND Points > (SELECT Points FROM Users WHERE Id = @Id)",
+            object rank = DBHelper.Scalar("SELECT COUNT(*) FROM Users WHERE IsActive = 1 AND Role = 'Member' AND Points > (SELECT Points FROM Users WHERE Id = @Id)",
                 new System.Data.SqlClient.SqlParameter("@Id", userId));
             litMyRank.Text = (Convert.ToInt32(rank) + 1).ToString();
 

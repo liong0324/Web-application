@@ -12,14 +12,14 @@
             <p class="section-subtitle">Illuminate your learning journey</p>
         </div>
         <div class="row g-4 mb-5">
-            <div class="col-lg-6">
-                <article class="glass-card p-4">
+            <div class="col-lg-6 d-flex">
+                <article class="glass-card p-4 w-100">
                     <h3><i class="bi bi-lightbulb me-2 text-primary"></i>Our Mission</h3>
                     <p class="text-muted">LUMORA is dedicated to providing accessible, interactive, and engaging digital learning resources. We believe education should be available to everyone, combining professional content with gamified experiences that make learning enjoyable and effective.</p>
                 </article>
             </div>
-            <div class="col-lg-6">
-                <article class="glass-card p-4">
+            <div class="col-lg-6 d-flex">
+                <article class="glass-card p-4 w-100">
                     <h3><i class="bi bi-eye me-2 text-primary"></i>Our Vision</h3>
                     <p class="text-muted">To become the leading interactive learning platform where students can learn at their own pace, track their progress, earn achievements, and join a supportive community of learners worldwide.</p>
                 </article>

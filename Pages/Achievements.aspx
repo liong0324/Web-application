@@ -21,11 +21,9 @@
                             </div>
                             <h6 class="mb-1"><%# Eval("Name") %></h6>
                             <small class="text-muted d-block mb-2"><%# Eval("Description") %></small>
-                            <% if (Convert.ToBoolean(Eval("Earned"))) { %>
-                                <span class="badge" style="background:var(--success);color:white;"><i class="bi bi-check-circle me-1"></i>Earned</span>
-                            <% } else { %>
-                                <span class="badge" style="background:var(--text-muted);color:white;"><i class="bi bi-lock me-1"></i><%# Eval("PointsRequired") %> pts</span>
-                            <% } %>
+                            <%# Convert.ToBoolean(Eval("Earned"))
+                                ? "<span class=\"badge\" style=\"background:var(--success);color:white;\"><i class=\"bi bi-check-circle me-1\"></i>Earned</span>"
+                                : "<span class=\"badge\" style=\"background:var(--text-muted);color:white;\"><i class=\"bi bi-lock me-1\"></i>" + Eval("PointsRequired") + " pts</span>" %>
                         </div>
                     </div>
                 </ItemTemplate>

@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7 hero-content">
-                    <h1 class="hero-title">Learn Without Limits — Start Your Journey Today</h1>
+                    <h1 class="hero-title">Learn Without Limits &mdash; Start Your Journey Today</h1>
                     <p class="hero-subtitle">An interactive learning platform combining professional content with engaging challenges, gamified experiences, and a supportive community.</p>
                     <div class="d-flex gap-3 flex-wrap">
                         <a href="<%= ResolveUrl("~/Pages/Courses.aspx") %>" class="btn-hero-primary">
@@ -60,28 +60,28 @@
             <p class="section-subtitle">Everything you need for an effective and engaging learning experience</p>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
+                    <div class="feature-card h-100">
                         <div class="feature-icon purple"><i class="bi bi-bullseye"></i></div>
                         <h5>Learn at Your Own Pace</h5>
                         <p class="text-muted small">Content broken into small, trackable steps that fit your schedule.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
+                    <div class="feature-card h-100">
                         <div class="feature-icon gold"><i class="bi bi-trophy"></i></div>
                         <h5>Achievement System</h5>
                         <p class="text-muted small">Earn points and badges as you complete lessons and quizzes.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
+                    <div class="feature-card h-100">
                         <div class="feature-icon teal"><i class="bi bi-graph-up"></i></div>
                         <h5>Track Your Progress</h5>
                         <p class="text-muted small">Visual charts showing your performance in real time.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="feature-card">
+                    <div class="feature-card h-100">
                         <div class="feature-icon green"><i class="bi bi-people"></i></div>
                         <h5>Interactive Community</h5>
                         <p class="text-muted small">Discussions, peer support, and collaborative learning.</p>
@@ -124,6 +124,7 @@
             </div>
         </section>
 
+        <% if (Session["UserId"] == null) { %>
         <section class="py-5">
             <h2 class="section-title">Multimedia <span class="text-gradient">Showcase</span></h2>
             <p class="section-subtitle">Experience interactive learning with rich multimedia content</p>
@@ -193,7 +194,9 @@
                 </div>
             </div>
         </section>
+        <% } %>
 
+        <% if (Session["UserId"] == null) { %>
         <section class="py-5 mb-5">
             <div class="cta-section">
                 <h2 class="cta-title">Ready to Start Learning?</h2>
@@ -203,5 +206,6 @@
                 </a>
             </div>
         </section>
+        <% } %>
     </div>
 </asp:Content>

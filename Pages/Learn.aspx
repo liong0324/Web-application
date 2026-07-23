@@ -15,7 +15,7 @@
                             </a>
                         </ItemTemplate>
                     </asp:Repeater>
-                </div>
+                </aside>
             </div>
 
             <div class="col-lg-9">
@@ -39,12 +39,12 @@
                                         <i class="bi bi-question-circle display-6 text-primary"></i>
                                         <h6 class="mt-2"><%# Eval("Title") %></h6>
                                         <p class="small text-muted mb-2"><%# Eval("TimeLimitMinutes") %> min | <%# Eval("PassingScore") %>% to pass</p>
-                                        <a href='TakeQuiz.aspx?quizId=<%# Eval("Id") %>&courseId=<%# Eval("CourseId") %>&lessonId=<%# Eval("LessonId") %>' class="btn btn-sm btn-lumora-primary">Take Quiz</a>
+                                        <a href='TakeQuiz.aspx?quizId=<%# Eval("Id") %>&courseId=<%= courseId %>&lessonId=<%# Eval("LessonId") %>' class="btn btn-sm btn-lumora-primary">Take Quiz</a>
                                     </div>
                                 </div>
                             </ItemTemplate>
-                    </asp:Repeater>
-                </aside>
+                        </asp:Repeater>
+                    </div>
                 </asp:Panel>
 
                 <div class="glass-card p-4 mb-4">

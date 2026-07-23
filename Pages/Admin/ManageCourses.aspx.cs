@@ -21,8 +21,10 @@ namespace LumoraWebForms.Pages.Admin
 
         private void LoadCourses()
         {
-            string sql = @"SELECT c.Id, c.Title, c.Description, c.Price, c.IsPublished, c.EnrollmentCount, c.CategoryId, c.Level,
-                           cat.Name AS CategoryName FROM Courses c
+            string sql = @"SELECT c.Id, c.Title, c.Description, c.Price, c.IsPublished, c.CategoryId, c.Level,
+                           cat.Name AS CategoryName,
+                           (SELECT COUNT(*) FROM Enrollments WHERE CourseId = c.Id) AS EnrollmentCount
+                           FROM Courses c
                            LEFT JOIN Categories cat ON c.CategoryId = cat.Id ORDER BY c.CreatedDate DESC";
             DataTable dt = DBHelper.Query(sql);
             rptCourses.DataSource = dt;

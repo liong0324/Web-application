@@ -10,6 +10,7 @@ namespace LumoraWebForms.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserId"] == null) { Response.Redirect("Login.aspx"); return; }
+            if (Session["Role"]?.ToString() != "Member") { Response.Redirect("~/Pages/Admin/Dashboard.aspx"); return; }
             if (!IsPostBack) LoadAchievements();
         }
 

@@ -25,7 +25,8 @@ namespace LumoraWebForms.Pages
 
         private void LoadCourse()
         {
-            string sql = @"SELECT c.*, cat.Name AS CategoryName, u.FullName AS InstructorName
+            string sql = @"SELECT c.*, cat.Name AS CategoryName, u.FullName AS InstructorName,
+                           (SELECT COUNT(*) FROM Enrollments WHERE CourseId = c.Id) AS LiveEnrollments
                            FROM Courses c
                            INNER JOIN Categories cat ON c.CategoryId = cat.Id
                            LEFT JOIN Users u ON c.InstructorId = u.Id
@@ -43,18 +44,22 @@ namespace LumoraWebForms.Pages
             courseTitle.Text = row["Title"].ToString();
             courseCategory.Text = row["CategoryName"].ToString();
             courseInstructor.Text = row["InstructorName"]?.ToString() ?? "N/A";
-            courseEnrollments.Text = row["EnrollmentCount"].ToString();
+            courseEnrollments.Text = row["LiveEnrollments"].ToString();
             courseDescription.Text = row["Description"]?.ToString() ?? "";
             coursePrice.InnerHtml = Convert.ToDecimal(row["Price"]) == 0 ? "Free" : "$" + Convert.ToDecimal(row["Price"]).ToString("F2");
             lessonCount.Text = DBHelper.Scalar("SELECT COUNT(*) FROM Lessons WHERE CourseId = @Id",
                 new System.Data.SqlClient.SqlParameter("@Id", courseId)).ToString();
-            enrollmentCount2.Text = row["EnrollmentCount"].ToString();
+            enrollmentCount2.Text = row["LiveEnrollments"].ToString();
             categoryName2.Text = row["CategoryName"].ToString();
 
             DataTable lessons = DBHelper.Query("SELECT * FROM Lessons WHERE CourseId = @Id ORDER BY [Order]",
                 new System.Data.SqlClient.SqlParameter("@Id", courseId));
             rptLessons.DataSource = lessons;
             rptLessons.DataBind();
+            pnlLessons.Visible = lessons.Rows.Count > 0;
+            pnlNoLessons.Visible = lessons.Rows.Count == 0;
+
+            bool hasLessons = lessons.Rows.Count > 0;
 
             if (Session["UserId"] != null && Session["Role"]?.ToString() == "Member")
             {
@@ -70,8 +75,24 @@ namespace LumoraWebForms.Pages
                     int progress = Convert.ToInt32(enrollment.Rows[0]["Progress"]);
                     progressBar.Text = "<div class='progress-bar' style='width:" + progress + "%'></div>";
                     progressText.Text = progress + "% complete";
-                    btnContinue.HRef = string.Format("Learn.aspx?courseId={0}", courseId);
+                    btnContinue.HRef = hasLessons ? string.Format("Learn.aspx?courseId={0}", courseId) : "#";
+                    btnContinue.Visible = hasLessons;
                 }
+            }
+            else if (Session["UserId"] != null)
+            {
+                // Admin and Instructor see a Manage Course button instead of Enroll
+                pnlEnroll.Visible = false;
+                pnlManage.Visible = true;
+                btnManageCourse.HRef = Session["Role"]?.ToString() == "Admin"
+                    ? ResolveUrl("~/Pages/Admin/ManageCourses.aspx")
+                    : ResolveUrl("~/Pages/Instructor/MyCourses.aspx");
+            }
+
+            btnEnroll.Enabled = hasLessons;
+            if (!hasLessons)
+            {
+                btnEnroll.Text = "No Lessons Yet";
             }
         }
 
@@ -80,6 +101,14 @@ namespace LumoraWebForms.Pages
             if (Session["UserId"] == null)
             {
                 Response.Redirect("Login.aspx");
+                return;
+            }
+
+            // Only students (Member role) can enroll
+            string role = Session["Role"]?.ToString();
+            if (role != "Member")
+            {
+                Response.Redirect(string.Format("CourseDetail.aspx?id={0}", courseId));
                 return;
             }
 
@@ -96,6 +125,14 @@ namespace LumoraWebForms.Pages
 
                 DBHelper.Execute("UPDATE Courses SET EnrollmentCount = EnrollmentCount + 1 WHERE Id = @Id",
                     new System.Data.SqlClient.SqlParameter("@Id", courseId));
+            }
+
+            object lessonCount = DBHelper.Scalar("SELECT COUNT(*) FROM Lessons WHERE CourseId = @Id",
+                new System.Data.SqlClient.SqlParameter("@Id", courseId));
+            if (Convert.ToInt32(lessonCount) == 0)
+            {
+                Response.Redirect(string.Format("CourseDetail.aspx?id={0}", courseId));
+                return;
             }
 
             Response.Redirect(string.Format("Learn.aspx?courseId={0}", courseId));

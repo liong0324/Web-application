@@ -9,6 +9,19 @@ namespace LumoraWebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Redirect logged-in users straight to their dashboard
+            if (Session["UserId"] != null)
+            {
+                string role = Session["Role"]?.ToString();
+                if (role == "Admin")
+                    Response.Redirect("~/Pages/Admin/Dashboard.aspx");
+                else if (role == "Instructor")
+                    Response.Redirect("~/Pages/Instructor/Dashboard.aspx");
+                else
+                    Response.Redirect("~/Pages/Dashboard.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 LoadCourses();
@@ -18,9 +31,10 @@ namespace LumoraWebForms
 
         private void LoadCourses()
         {
-            string sql = @"SELECT c.Id, c.Title, c.Description, c.Level, c.EnrollmentCount,
+            string sql = @"SELECT c.Id, c.Title, c.Description, c.Level,
                            cat.Name AS CategoryName,
-                           (SELECT COUNT(*) FROM Lessons WHERE CourseId = c.Id) AS LessonCount
+                           (SELECT COUNT(*) FROM Lessons WHERE CourseId = c.Id) AS LessonCount,
+                           (SELECT COUNT(*) FROM Enrollments WHERE CourseId = c.Id) AS EnrollmentCount
                            FROM Courses c
                            INNER JOIN Categories cat ON c.CategoryId = cat.Id
                            WHERE c.IsPublished = 1

@@ -26,7 +26,8 @@ namespace LumoraWebForms.Pages
 
         private void LoadCourses(int? categoryId)
         {
-            string sql = @"SELECT c.Id, c.Title, c.Description, c.Level, c.EnrollmentCount,
+            string sql = @"SELECT c.Id, c.Title, c.Description, c.Level,
+                           (SELECT COUNT(*) FROM Enrollments WHERE CourseId = c.Id) AS EnrollmentCount,
                            cat.Name AS CategoryName, u.FullName AS InstructorName
                            FROM Courses c
                            INNER JOIN Categories cat ON c.CategoryId = cat.Id

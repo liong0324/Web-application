@@ -16,6 +16,11 @@ namespace LumoraWebForms.Pages
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+            // Always clear old messages first, so a stale "success" from a previous
+            // submit doesn't linger on screen when this submit fails validation.
+            lblSuccess.Visible = false;
+            lblError.Visible = false;
+
             if (!Page.IsValid) return;
 
             if (!chkTerms.Checked)

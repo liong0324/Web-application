@@ -17,9 +17,12 @@ namespace LumoraWebForms.Pages {
         protected global::System.Web.UI.WebControls.Literal courseEnrollments;
         protected global::System.Web.UI.WebControls.Literal courseDescription;
         protected global::System.Web.UI.WebControls.Panel pnlLessons;
+        protected global::System.Web.UI.WebControls.Panel pnlNoLessons;
         protected global::System.Web.UI.WebControls.Repeater rptLessons;
         protected global::System.Web.UI.WebControls.Panel pnlEnroll;
         protected global::System.Web.UI.WebControls.Button btnEnroll;
+        protected global::System.Web.UI.WebControls.Panel pnlManage;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnManageCourse;
         protected global::System.Web.UI.WebControls.Panel pnlProgress;
         protected global::System.Web.UI.WebControls.Literal progressBar;
         protected global::System.Web.UI.WebControls.Literal progressText;

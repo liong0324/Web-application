@@ -49,6 +49,8 @@ namespace LumoraWebForms.Pages
 
                 if (row["Role"].ToString() == "Admin")
                     Response.Redirect("~/Pages/Admin/Dashboard.aspx");
+                else if (row["Role"].ToString() == "Instructor")
+                    Response.Redirect("~/Pages/Instructor/Dashboard.aspx");
                 else
                     Response.Redirect("~/Pages/Dashboard.aspx");
             }

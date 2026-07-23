@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="drop_tables.sql" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="Web.config" />
@@ -81,6 +82,8 @@
     <Content Include="Pages\Admin\ManageUsers.aspx" />
     <Content Include="Pages\Admin\ManageCategories.aspx" />
     <Content Include="Pages\Admin\Messages.aspx" />
+    <Content Include="Pages\Instructor\Dashboard.aspx" />
+    <Content Include="Pages\Instructor\MyCourses.aspx" />
     <Content Include="database.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +237,20 @@
     </Compile>
     <Compile Include="Pages\Admin\Messages.aspx.designer.cs">
       <DependentUpon>Messages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Instructor\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Instructor\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Instructor\MyCourses.aspx.cs">
+      <DependentUpon>MyCourses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Instructor\MyCourses.aspx.designer.cs">
+      <DependentUpon>MyCourses.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

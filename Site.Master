@@ -11,7 +11,140 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<%= ResolveUrl("~/css/site.css") %>" />
+    <link rel="stylesheet" href="<%= ResolveUrl("~/css/site.css") %>?v=3" />
+    <!-- Apply saved theme immediately to prevent flash of unstyled content -->
+    <script>
+        (function () {
+            var saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+    <style>
+        /* ============================================================
+           DARK MODE — inline so it always loads fresh, highest priority
+           ============================================================ */
+        html[data-theme="dark"],
+        html[data-theme="dark"] body {
+            background-color: #1E1E2E !important;
+            color: #EAEAEA !important;
+        }
+        html[data-theme="dark"] h1,
+        html[data-theme="dark"] h2,
+        html[data-theme="dark"] h3,
+        html[data-theme="dark"] h4,
+        html[data-theme="dark"] h5,
+        html[data-theme="dark"] h6 { color: #EAEAEA !important; }
+        html[data-theme="dark"] p { color: #B2BEC3 !important; }
+        html[data-theme="dark"] small,
+        html[data-theme="dark"] .small { color: #B2BEC3 !important; }
+        html[data-theme="dark"] strong { color: #EAEAEA !important; }
+        html[data-theme="dark"] li { color: #B2BEC3; }
+
+        /* Bootstrap text utilities */
+        html[data-theme="dark"] .text-muted { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .text-secondary { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .text-dark { color: #EAEAEA !important; }
+
+        /* Navbar */
+        html[data-theme="dark"] .navbar { background: rgba(30,30,46,0.95) !important; }
+        html[data-theme="dark"] .nav-link { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .nav-link:hover { color: #A29BFE !important; }
+        html[data-theme="dark"] .btn-nav { color: #B2BEC3 !important; border-color: rgba(108,92,231,0.3) !important; }
+        html[data-theme="dark"] .btn-nav-user { color: #A29BFE !important; }
+        html[data-theme="dark"] .navbar-toggler-icon { filter: invert(1); }
+        html[data-theme="dark"] .search-input { background: #2D2D44 !important; color: #EAEAEA !important; border-color: rgba(108,92,231,0.3) !important; }
+        html[data-theme="dark"] .theme-toggle { background: #2D2D44 !important; border-color: rgba(108,92,231,0.3) !important; color: #EAEAEA !important; }
+
+        /* Dropdown */
+        html[data-theme="dark"] .dropdown-menu { background: #2D2D44 !important; border-color: rgba(108,92,231,0.3) !important; }
+        html[data-theme="dark"] .dropdown-item { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .dropdown-item:hover { background: rgba(108,92,231,0.2) !important; color: #A29BFE !important; }
+        html[data-theme="dark"] .dropdown-divider { border-color: rgba(108,92,231,0.2) !important; }
+
+        /* Cards */
+        html[data-theme="dark"] .glass-card,
+        html[data-theme="dark"] .glass-card-sm { background: rgba(45,45,68,0.9) !important; border-color: rgba(108,92,231,0.25) !important; }
+        html[data-theme="dark"] .feature-card { background: rgba(45,45,68,0.9) !important; border-color: rgba(108,92,231,0.25) !important; }
+        html[data-theme="dark"] .feature-card h5 { color: #EAEAEA !important; }
+        html[data-theme="dark"] .feature-card p,
+        html[data-theme="dark"] .feature-card .text-muted { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .course-card { background: rgba(45,45,68,0.9) !important; border-color: rgba(108,92,231,0.25) !important; }
+        html[data-theme="dark"] .course-card-title { color: #EAEAEA !important; }
+        html[data-theme="dark"] .course-card-desc { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .course-card-meta { color: #636E72 !important; }
+        html[data-theme="dark"] .testimonial-card { background: rgba(45,45,68,0.9) !important; border-color: rgba(108,92,231,0.25) !important; }
+        html[data-theme="dark"] .multimedia-card { background: rgba(45,45,68,0.9) !important; border-color: rgba(108,92,231,0.25) !important; }
+        html[data-theme="dark"] .admin-stat-card { background: rgba(45,45,68,0.9) !important; border-color: rgba(108,92,231,0.25) !important; }
+        html[data-theme="dark"] .leaderboard-item { background: rgba(45,45,68,0.9) !important; border-color: rgba(108,92,231,0.25) !important; }
+        html[data-theme="dark"] .leaderboard-name { color: #EAEAEA !important; }
+
+        /* Stats bar */
+        html[data-theme="dark"] .stats-bar { background: #2D2D44 !important; }
+        html[data-theme="dark"] .stat-label { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .section-title { color: #EAEAEA !important; }
+        html[data-theme="dark"] .section-subtitle { color: #B2BEC3 !important; }
+
+        /* Tables */
+        html[data-theme="dark"] .table { color: #EAEAEA !important; --bs-table-color: #EAEAEA; --bs-table-bg: transparent; --bs-table-border-color: rgba(108,92,231,0.2); }
+        html[data-theme="dark"] .table thead th { background: #2D2D44 !important; color: #B2BEC3 !important; border-bottom-color: rgba(108,92,231,0.2) !important; }
+        html[data-theme="dark"] .table td { color: #EAEAEA !important; border-bottom-color: rgba(108,92,231,0.2) !important; }
+        html[data-theme="dark"] .table td strong { color: #EAEAEA !important; }
+        html[data-theme="dark"] .table td small,
+        html[data-theme="dark"] .table td .text-muted { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .table-hover tbody tr:hover td { background-color: rgba(108,92,231,0.08) !important; color: #EAEAEA !important; }
+
+        /* Forms */
+        html[data-theme="dark"] .form-control,
+        html[data-theme="dark"] .form-select,
+        html[data-theme="dark"] textarea.form-control { background-color: #2D2D44 !important; border-color: rgba(108,92,231,0.3) !important; color: #EAEAEA !important; }
+        html[data-theme="dark"] .form-control:focus,
+        html[data-theme="dark"] .form-select:focus { background-color: #2D2D44 !important; color: #EAEAEA !important; }
+        html[data-theme="dark"] .form-label { color: #EAEAEA !important; }
+        html[data-theme="dark"] .form-check-label { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .input-group-text { background-color: #2D2D44 !important; border-color: rgba(108,92,231,0.3) !important; color: #A29BFE !important; }
+
+        /* Alerts */
+        html[data-theme="dark"] .alert { background: #2D2D44 !important; border-color: rgba(108,92,231,0.3) !important; color: #EAEAEA !important; }
+        html[data-theme="dark"] .alert-danger { background: rgba(231,76,60,0.15) !important; border-color: rgba(231,76,60,0.3) !important; color: #FF7675 !important; }
+        html[data-theme="dark"] .alert-success { background: rgba(0,184,148,0.15) !important; border-color: rgba(0,184,148,0.3) !important; color: #55EFC4 !important; }
+        html[data-theme="dark"] .alert-warning { background: rgba(253,203,110,0.15) !important; border-color: rgba(253,203,110,0.3) !important; color: #FDCB6E !important; }
+
+        /* Footer */
+        html[data-theme="dark"] .lumora-footer { background: #2D2D44 !important; border-top-color: rgba(108,92,231,0.2) !important; }
+        html[data-theme="dark"] .footer-title { color: #EAEAEA !important; }
+        html[data-theme="dark"] .footer-links a { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .footer-links a:hover { color: #A29BFE !important; }
+        html[data-theme="dark"] .lumora-footer .text-muted { color: #B2BEC3 !important; }
+        html[data-theme="dark"] .footer-divider,
+        html[data-theme="dark"] .lumora-footer hr { border-color: rgba(108,92,231,0.2) !important; opacity: 1 !important; }
+        html[data-theme="dark"] .social-link { background: #1E1E2E !important; color: #B2BEC3 !important; }
+        html[data-theme="dark"] .social-link:hover { background: #6C5CE7 !important; color: white !important; }
+
+        /* Misc */
+        html[data-theme="dark"] .progress { background-color: #1E1E2E !important; }
+        html[data-theme="dark"] hr { border-color: rgba(108,92,231,0.2) !important; opacity: 1 !important; }
+        html[data-theme="dark"] .page-header h1,
+        html[data-theme="dark"] .page-header p { color: #EAEAEA !important; }
+        html[data-theme="dark"] .breadcrumb-item { color: #636E72; }
+        html[data-theme="dark"] .breadcrumb-item a { color: #A29BFE !important; }
+
+        /* Keep gradient sections white — but NOT button text */
+        html[data-theme="dark"] .hero-section h1,
+        html[data-theme="dark"] .hero-section p,
+        html[data-theme="dark"] .hero-section .hero-title,
+        html[data-theme="dark"] .hero-section .hero-subtitle { color: white !important; }
+        html[data-theme="dark"] .dashboard-welcome h2,
+        html[data-theme="dark"] .dashboard-welcome p,
+        html[data-theme="dark"] .dashboard-welcome span { color: white !important; }
+        html[data-theme="dark"] .cta-section h2,
+        html[data-theme="dark"] .cta-section p,
+        html[data-theme="dark"] .cta-section .cta-title,
+        html[data-theme="dark"] .cta-section .cta-subtitle { color: white !important; }
+        /* Hero and CTA buttons keep their own colors */
+        html[data-theme="dark"] .btn-hero-primary { color: var(--primary) !important; }
+        html[data-theme="dark"] .btn-hero-secondary { color: white !important; }
+        html[data-theme="dark"] .btn-cta { color: var(--primary) !important; }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -46,6 +179,17 @@
                                             <li><a class="dropdown-item" href="<%= ResolveUrl("~/Pages/Admin/ManageCourses.aspx") %>"><i class="bi bi-collection-play me-2"></i>Courses</a></li>
                                             <li><a class="dropdown-item" href="<%= ResolveUrl("~/Pages/Admin/ManageUsers.aspx") %>"><i class="bi bi-people me-2"></i>Users</a></li>
                                             <li><a class="dropdown-item" href="<%= ResolveUrl("~/Pages/Admin/Messages.aspx") %>"><i class="bi bi-envelope me-2"></i>Messages</a></li>
+                                        </ul>
+                                    </div>
+                                <% } %>
+                                <% if (Session["Role"] != null && Session["Role"].ToString() == "Instructor") { %>
+                                    <div class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle btn-nav" href="#" data-bs-toggle="dropdown">
+                                            <i class="bi bi-person-video3"></i> Instructor
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end glass-card">
+                                            <li><a class="dropdown-item" href="<%= ResolveUrl("~/Pages/Instructor/Dashboard.aspx") %>"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                                            <li><a class="dropdown-item" href="<%= ResolveUrl("~/Pages/Instructor/MyCourses.aspx") %>"><i class="bi bi-collection-play me-2"></i>My Courses</a></li>
                                         </ul>
                                     </div>
                                 <% } %>
